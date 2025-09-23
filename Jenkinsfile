@@ -30,12 +30,15 @@ pipeline{
 		}
 
 		stage('Contianersation'){
-			sh '''
-				docker stop c1 || true
-				docker rm c1 || true
-				docker run -it -d --name c1 -p 9000:8080 manojkrishnappa/continous-intergartion:1
+			steps{
+				sh '''
+					docker stop c1 || true
+					docker rm c1 || true
+					docker run -it -d --name c1 -p 9000:8080 manojkrishnappa/continous-intergartion:1
 
-			'''	
+				'''				
+			}
+
 		}
 
 	}

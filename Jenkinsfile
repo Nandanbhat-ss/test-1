@@ -38,7 +38,23 @@ pipeline{
 
 				'''				
 			}
+        
+        stage('Login to Docker Hub'){
+            steps {
+                script {
+                    withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
+                        sh 'echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin'
+                    }
+                }
+            }
+        }
+		
+		stage('Pushing Docker image to DockerHub'){
+			steps{
+				sh 'docker push manojkrishnappa/continous-intergartion:1 '
+			}
 
+		}	
 		}
 
 	}
